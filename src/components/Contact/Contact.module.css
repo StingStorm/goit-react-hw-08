@@ -1,0 +1,12 @@
+.contactDescr > div {
+  position: relative;
+  padding-left: 22px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  transform: translateY(-50%);
+}
