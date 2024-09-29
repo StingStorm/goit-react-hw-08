@@ -1,0 +1,32 @@
+.contactForm {
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 1rem;
+
+  width: 300px;
+}
+
+.contactForm > div {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 0.75rem;
+}
+
+.contactForm > button {
+  display: block;
+  margin: 0 auto;
+}
+
+.errorMsg {
+  color: red;
+  background-color: antiquewhite;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.errorInput {
+  color: red;
+  border: 1px solid red;
+  outline: none;
+}

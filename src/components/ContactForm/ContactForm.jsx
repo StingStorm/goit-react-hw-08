@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 import { useId } from 'react';
+import css from './ContactForm.module.css';
 
 const FeedbackSchema = Yup.object().shape({
   contactName: Yup.string()
@@ -38,19 +39,45 @@ const ContactForm = ({ onAdd }) => {
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
     >
-      <Form>
-        <div>
-          <label htmlFor={nameFieldId}></label>
-          <Field type="text" name="contactName" id={nameFieldId} />
-          <ErrorMessage name="contactName" component="span" />
-        </div>
-        <div>
-          <label htmlFor={emailFieldId}></label>
-          <Field type="text" name="phoneNumber" id={emailFieldId} />
-          <ErrorMessage name="phoneNumber" component="span" />
-        </div>
-        <button type="submit">Add contact</button>
-      </Form>
+      {({ errors, touched }) => (
+        <Form className={css.contactForm}>
+          <div>
+            <label htmlFor={nameFieldId}>Name</label>
+            <Field
+              className={
+                errors.contactName && touched.contactName ? css.errorInput : ''
+              }
+              type="text"
+              name="contactName"
+              id={nameFieldId}
+            />
+            <ErrorMessage
+              className={css.errorMsg}
+              name="contactName"
+              component="span"
+            />
+          </div>
+          <div>
+            <label htmlFor={emailFieldId}>Phone Number</label>
+            <Field
+              className={
+                errors.phoneNumber && touched.phoneNumber ? css.errorInput : ''
+              }
+              type="tel"
+              name="phoneNumber"
+              id={emailFieldId}
+            />
+            <ErrorMessage
+              className={css.errorMsg}
+              name="phoneNumber"
+              component="span"
+            />
+          </div>
+          <button type="submit" disabled={Object.keys(errors).length > 0}>
+            Add contact
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 };
