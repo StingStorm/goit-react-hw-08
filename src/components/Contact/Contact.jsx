@@ -1,9 +1,12 @@
 import { IoMdPerson } from 'react-icons/io';
 import { FaPhone } from 'react-icons/fa6';
 import css from './Contact.module.css';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const Contact = ({ name, phoneNumber, id, onDelete }) => {
-  const hrefPhoneNum = phoneNumber.split('-').join('');
+const Contact = ({ name, number, id }) => {
+  const dispatch = useDispatch();
+  const hrefPhoneNum = number.split('-').join('');
   return (
     <>
       <div className={css.contactDescr}>
@@ -13,10 +16,10 @@ const Contact = ({ name, phoneNumber, id, onDelete }) => {
         </div>
         <div>
           <FaPhone size={'15px'} className={css.icon} />
-          <a href={`tel:+38048${hrefPhoneNum}`}>{phoneNumber}</a>
+          <a href={`tel:+38048${hrefPhoneNum}`}>{number}</a>
         </div>
       </div>
-      <button type="button" onClick={() => onDelete(id)}>
+      <button type="button" onClick={() => dispatch(deleteContact(id))}>
         Delete
       </button>
     </>

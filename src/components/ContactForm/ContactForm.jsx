@@ -3,6 +3,8 @@ import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 import { useId } from 'react';
 import css from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 
 const FeedbackSchema = Yup.object().shape({
   contactName: Yup.string()
@@ -20,16 +22,20 @@ const intialValues = {
   phoneNumber: '',
 };
 
-const ContactForm = ({ onAdd }) => {
+const ContactForm = () => {
   const nameFieldId = useId();
-  const emailFieldId = useId();
+  const phoneNumFieldId = useId();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    onAdd({
-      id: nanoid(),
-      name: values.contactName,
-      number: values.phoneNumber,
-    });
+    dispatch(
+      addContact({
+        id: nanoid(),
+        name: values.contactName,
+        number: values.phoneNumber,
+      })
+    );
+
     actions.resetForm();
   };
 
@@ -58,14 +64,14 @@ const ContactForm = ({ onAdd }) => {
             />
           </div>
           <div>
-            <label htmlFor={emailFieldId}>Phone Number</label>
+            <label htmlFor={phoneNumFieldId}>Phone Number</label>
             <Field
               className={
                 errors.phoneNumber && touched.phoneNumber ? css.errorInput : ''
               }
               type="tel"
               name="phoneNumber"
-              id={emailFieldId}
+              id={phoneNumFieldId}
             />
             <ErrorMessage
               className={css.errorMsg}
