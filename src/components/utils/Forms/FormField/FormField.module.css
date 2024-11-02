@@ -1,0 +1,12 @@
+.errorMsg {
+  color: red;
+  background-color: antiquewhite;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.errorInput {
+  color: red;
+  border: 1px solid red;
+  outline: none;
+}
