@@ -8,10 +8,10 @@ const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-// // Remove JWT
-// const clearAuthHeader = () => {
-//   axios.defaults.headers.common.Authorization = '';
-// };
+// Remove JWT
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
 
 export const register = createAsyncThunk(
   'auth/register',
@@ -41,6 +41,17 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    const response = await axios.post('/users/logout');
+    clearAuthHeader();
+
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
@@ -53,7 +64,7 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
-      const response = axios.get('/users/current');
+      const response = await axios.get('/users/current');
 
       return response.data;
     } catch (error) {

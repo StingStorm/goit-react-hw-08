@@ -19,6 +19,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #73c1f1;
+  box-shadow: #fafafa 0px 30px 60px -12px inset, #fafafa 0px -8px 36px 0px inset;
 
   padding-top: 55px;
 }
