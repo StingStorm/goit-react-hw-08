@@ -1,12 +1,33 @@
+.fieldBox {
+  position: relative;
+}
+
+.fieldInput {
+  background-color: #f5cf88;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+
+  height: 25px;
+
+  &:hover,
+  &:focus {
+    border: 1px solid #4e5d72;
+  }
+}
+
 .errorMsg {
+  font-size: 0.85rem;
   color: red;
-  background-color: antiquewhite;
-  text-align: center;
-  padding: 0 0.5rem;
+  height: 22px;
 }
 
 .errorInput {
   color: red;
-  border: 1px solid red;
-  outline: none;
+  border: 2px solid #d44949;
+
+  &:hover,
+  &:focus {
+    border: 2px solid #d44949;
+  }
 }

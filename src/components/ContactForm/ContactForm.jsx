@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { BaseForm, FormField } from '../utils/Forms';
+import { BaseForm, FormField, SubmitButton } from '../utils/Forms';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contacts/operations';
 
@@ -10,6 +10,7 @@ const FeedbackSchema = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('Required'),
   phoneNumber: Yup.string()
+    .matches(/^\+?[0-9]+(-[0-9]+)*$/, 'Please enter a valid phone number')
     .min(7, 'Too Short!')
     .max(15, 'Too Long!')
     .required('Required'),
@@ -44,9 +45,9 @@ const ContactForm = () => {
         <BaseForm errors={errors} touched={touched}>
           <FormField type="text" name="contactName" label="Name" />
           <FormField type="tel" name="phoneNumber" label="Phone Number" />
-          <button type="submit" disabled={Object.keys(errors).length > 0}>
+          <SubmitButton disabled={Object.keys(errors).length > 0}>
             Add Contact
-          </button>
+          </SubmitButton>
         </BaseForm>
       )}
     </Formik>

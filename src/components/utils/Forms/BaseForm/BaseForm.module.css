@@ -1,9 +1,17 @@
 .baseForm {
-  border: 1px solid #000;
-  border-radius: 6px;
-  padding: 1rem;
+  position: relative;
+
+  border-radius: 1rem;
+  padding: 4rem 1rem 1rem 4rem;
+  color: #fdfffa;
 
   width: 300px;
+  min-height: 400px;
+  margin: 0 auto;
+
+  background-color: #e1995e;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px 5px;
 
   & > div {
     display: flex;
@@ -16,4 +24,15 @@
     display: block;
     margin: 0 auto;
   }
+}
+
+.baseForm::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  width: 1.5rem;
+  height: 100%;
+
+  background-color: #4e5d72;
 }

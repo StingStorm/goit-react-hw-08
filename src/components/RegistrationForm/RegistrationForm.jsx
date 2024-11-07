@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { BaseForm, FormField } from '../utils/Forms';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
+import { Button } from '@mui/material';
 
 const FeedbackSchema = Yup.object().shape({
   userName: Yup.string()
@@ -51,9 +52,13 @@ const RegistrationForm = () => {
           <FormField type="text" name="userName" label="Name" />
           <FormField type="email" name="userEmail" label="Email" />
           <FormField type="password" name="userPassword" label="Password" />
-          <button type="submit" disabled={Object.keys(errors).length > 0}>
+          <Button
+            variant="contained"
+            color="secondary"
+            disabled={Object.keys(errors).length > 0}
+          >
             Sign Up
-          </button>
+          </Button>
         </BaseForm>
       )}
     </Formik>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { BaseForm, FormField } from '../utils/Forms';
+import { BaseForm, FormField, SubmitButton } from '../utils/Forms';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operations';
 
@@ -9,7 +9,7 @@ const FeedbackSchema = Yup.object().shape({
     .email('Invalid email address')
     .matches(/^\S+@\S+\.\S+$/, 'Invalid email address')
     .required('Required'),
-  userPassword: Yup.string().min(8, 'Too Short!'),
+  userPassword: Yup.string().min(8, 'Too Short!').required('Required'),
 });
 
 const intialValues = {
@@ -41,9 +41,9 @@ const LoginForm = () => {
         <BaseForm errors={errors} touched={touched}>
           <FormField type="email" name="userEmail" label="Email" />
           <FormField type="password" name="userPassword" label="Password" />
-          <button type="submit" disabled={Object.keys(errors).length > 0}>
+          <SubmitButton disabled={Object.keys(errors).length > 0}>
             Log In
-          </button>
+          </SubmitButton>
         </BaseForm>
       )}
     </Formik>
