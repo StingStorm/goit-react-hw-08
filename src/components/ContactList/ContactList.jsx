@@ -7,15 +7,17 @@ const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
 
   return (
-    <ul className={css.contactList}>
-      {filteredContacts.map(contact => {
-        return (
-          <li key={contact.id} className={css.contactItem}>
-            <Contact {...contact} />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <ul className={css.contactList}>
+        {filteredContacts.map(contact => {
+          return (
+            <li key={contact.id} className={css.contactItem}>
+              <Contact {...contact} />
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

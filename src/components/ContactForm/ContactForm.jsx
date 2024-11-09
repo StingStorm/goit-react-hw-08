@@ -42,7 +42,7 @@ const ContactForm = () => {
       validationSchema={FeedbackSchema}
     >
       {({ errors, touched }) => (
-        <BaseForm errors={errors} touched={touched}>
+        <BaseForm errors={errors} touched={touched} minHeight="95%">
           <FormField type="text" name="contactName" label="Name" />
           <FormField type="tel" name="phoneNumber" label="Phone Number" />
           <SubmitButton disabled={Object.keys(errors).length > 0}>

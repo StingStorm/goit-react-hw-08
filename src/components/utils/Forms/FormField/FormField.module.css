@@ -4,15 +4,16 @@
 
 .fieldInput {
   background-color: #f5cf88;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 4px;
   outline: none;
 
   height: 25px;
+  transition: border-color 250ms ease-in-out;
 
   &:hover,
   &:focus {
-    border: 1px solid #4e5d72;
+    border-color: #4e5d72;
   }
 }
 

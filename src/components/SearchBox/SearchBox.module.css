@@ -1,12 +1,8 @@
 .searchBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 300px;
-  font-weight: 500;
-}
-
-.searchBox > input {
-  width: 100%;
+  display: block;
+  background-color: #f5cf88;
+  border-radius: 4px;
+  outline: none;
+  width: 80%;
+  margin: 0 auto 0.5rem;
 }

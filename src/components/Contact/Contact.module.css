@@ -1,12 +1,18 @@
-.contactDescr > div {
-  position: relative;
-  padding-left: 22px;
-}
+.contactDescr {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: auto;
+  width: 75%;
 
-.icon {
-  position: absolute;
-  top: 50%;
-  left: 0;
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 50%;
+  }
 
-  transform: translateY(-50%);
+  & a {
+    padding: 1rem 0;
+  }
 }
