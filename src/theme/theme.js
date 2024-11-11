@@ -19,6 +19,8 @@ const theme = createTheme({
     },
     border: {
       main: '#4E5D72',
+      dark: '#72abc5',
+      contrastText: '#fafafa',
     },
   },
 

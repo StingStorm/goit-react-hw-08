@@ -1,4 +1,15 @@
+.contactList {
+  overflow-y: scroll;
+  height: 100%;
+}
+
 .contactItem {
+  &:not(:last-child) {
+    margin-bottom: 0.25rem;
+  }
+}
+
+.contactLink {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,8 +18,10 @@
   padding: 0.25rem 0.5rem;
 
   background-color: rgba(245, 207, 136, 0.65);
+  transition: background-color 200ms ease-in-out;
 
-  &:not(:last-child) {
-    margin-bottom: 0.25rem;
+  &:hover,
+  &:focus {
+    background-color: rgba(243, 198, 114, 0.65);
   }
 }

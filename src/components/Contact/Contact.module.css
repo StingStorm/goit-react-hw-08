@@ -4,6 +4,8 @@
   gap: 1rem;
   height: auto;
   width: 75%;
+  color: #3c4a5d;
+  letter-spacing: 0.02em;
 
   & > div {
     display: flex;
@@ -12,7 +14,17 @@
     width: 50%;
   }
 
-  & a {
+  & span {
     padding: 1rem 0;
+    color: inherit;
+    text-decoration: underline dashed;
+    text-underline-offset: 4px;
+
+    transition: color 150ms ease-in-out;
+  }
+
+  & span:hover,
+  & span:focus {
+    color: #72abc5;
   }
 }

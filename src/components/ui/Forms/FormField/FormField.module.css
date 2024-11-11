@@ -3,12 +3,12 @@
 }
 
 .fieldInput {
-  background-color: #f5cf88;
+  height: 35px;
+
   border: 1px solid transparent;
   border-radius: 4px;
   outline: none;
-
-  height: 25px;
+  background-color: #f5cf88;
   transition: border-color 250ms ease-in-out;
 
   &:hover,

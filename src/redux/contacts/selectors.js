@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectNameFilter } from '../filters/selectors';
 
 export const selectContacts = state => state.contacts.items;
-export const selectContatsState = state => state.contacts;
+export const selectContactsState = state => state.contacts;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
@@ -15,5 +15,12 @@ export const selectFilteredContacts = createSelector(
 
       return isNameMatch || isNumberMatch;
     });
+  }
+);
+
+export const selectContactById = createSelector(
+  [selectContacts, (state, id) => id],
+  (contacts, id) => {
+    return contacts.find(contact => contact.id === id);
   }
 );

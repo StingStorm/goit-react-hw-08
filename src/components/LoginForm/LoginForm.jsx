@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { BaseForm, FormField, SubmitButton } from '../utils/Forms';
+import { BaseForm, FormField, SubmitButton } from '../ui/Forms';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/auth/operations';
 

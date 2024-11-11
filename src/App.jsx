@@ -2,13 +2,14 @@ import './App.css';
 
 import { lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Layout from './components/utils/Layout';
-import RestrictedRoute from './components/utils/RestrictedRoute';
-import PrivateRoute from './components/utils/PrivateRoute';
+import Layout from './components/ui/Layout';
+import RestrictedRoute from './components/ui/RestrictedRoute';
+import PrivateRoute from './components/ui/PrivateRoute';
 import { refreshUser } from './redux/auth/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthState } from './redux/auth/selectors';
 import Loader from './components/Loader/Loader';
+import ContactInfo from './components/ContactInfo/ContactInfo';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
@@ -51,14 +52,17 @@ function App() {
               }
             />
             <Route
-              path="/contacts"
+              path="/contacts/*"
               element={
                 <PrivateRoute
                   component={<ContactsPage />}
                   redirectTo="/login"
                 />
               }
-            />
+            >
+              <Route index element={<div>Your contact</div>} />
+              <Route path=":contactId" element={<ContactInfo />} />
+            </Route>
           </Routes>
         </Layout>
       )}
