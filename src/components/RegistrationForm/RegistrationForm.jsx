@@ -1,9 +1,8 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { BaseForm, FormField } from '../ui/Forms';
+import { BaseForm, FormField, SubmitButton } from '../ui/Forms';
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/operations';
-import { Button } from '@mui/material';
 
 const FeedbackSchema = Yup.object().shape({
   userName: Yup.string()
@@ -52,13 +51,9 @@ const RegistrationForm = () => {
           <FormField type="text" name="userName" label="Name" />
           <FormField type="email" name="userEmail" label="Email" />
           <FormField type="password" name="userPassword" label="Password" />
-          <Button
-            variant="contained"
-            color="secondary"
-            disabled={Object.keys(errors).length > 0}
-          >
+          <SubmitButton disabled={Object.keys(errors).length > 0}>
             Sign Up
-          </Button>
+          </SubmitButton>
         </BaseForm>
       )}
     </Formik>
