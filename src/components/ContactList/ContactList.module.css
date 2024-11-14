@@ -4,12 +4,6 @@
 }
 
 .contactItem {
-  &:not(:last-child) {
-    margin-bottom: 0.25rem;
-  }
-}
-
-.contactLink {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,8 +11,13 @@
   width: 100%;
   padding: 0.25rem 0.5rem;
 
+  cursor: pointer;
   background-color: rgba(245, 207, 136, 0.65);
   transition: background-color 200ms ease-in-out;
+
+  &:not(:last-child) {
+    margin-bottom: 0.25rem;
+  }
 
   &:hover,
   &:focus {

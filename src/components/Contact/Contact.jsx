@@ -1,44 +1,38 @@
 import css from './Contact.module.css';
 import Avatar from '../ui/Avatar/Avatar';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
 
 import { IconButton } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-const Contact = ({ name, number, id }) => {
-  const dispatch = useDispatch();
-  const hrefPhoneNum = number.split('-').join('');
+const Contact = ({ contact, onOpenDialog }) => {
+  const hrefPhoneNum = contact.number.split('-').join('');
 
   const handleEvent = e => {
     e.preventDefault();
     e.stopPropagation();
   };
 
-  const handleCallClick = () => {
+  const handleCall = () => {
     location.href = `tel:${hrefPhoneNum}`;
   };
 
-  const handleDelete = () => {
-    dispatch(deleteContact(id));
-  };
   return (
     <>
       <div className={css.contactDescr}>
         <div>
-          <Avatar />
-          <p>{name}</p>
+          <Avatar id={contact.id} />
+          <p>{contact.name}</p>
         </div>
         <div>
           <CallIcon className={css.icon} sx={{ color: 'green' }} />
           <span
             onClick={e => {
               handleEvent(e);
-              handleCallClick();
+              handleCall();
             }}
           >
-            {number}
+            {contact.number}
           </span>
         </div>
       </div>
@@ -47,7 +41,7 @@ const Contact = ({ name, number, id }) => {
         aria-label="delete"
         onClick={e => {
           handleEvent(e);
-          handleDelete();
+          onOpenDialog(contact);
         }}
       >
         <DeleteForeverIcon color="accent" />

@@ -3,6 +3,7 @@ import { selectNameFilter } from '../filters/selectors';
 
 export const selectContacts = state => state.contacts.items;
 export const selectContactsState = state => state.contacts;
+export const selectCurrentContact = state => state.contacts.currentContact;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
@@ -15,12 +16,5 @@ export const selectFilteredContacts = createSelector(
 
       return isNameMatch || isNumberMatch;
     });
-  }
-);
-
-export const selectContactById = createSelector(
-  [selectContacts, (state, id) => id],
-  (contacts, id) => {
-    return contacts.find(contact => contact.id === id);
   }
 );

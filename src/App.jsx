@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthState } from './redux/auth/selectors';
 import Loader from './components/Loader/Loader';
 import ContactInfo from './components/ContactInfo/ContactInfo';
+import ContactInfoStub from './components/ui/ContactInfoStub/ContactInfoStub';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
@@ -60,7 +61,7 @@ function App() {
                 />
               }
             >
-              <Route index element={<div>Your contact</div>} />
+              <Route index element={<ContactInfoStub />} />
               <Route path=":contactId" element={<ContactInfo />} />
             </Route>
           </Routes>

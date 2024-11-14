@@ -1,19 +1,22 @@
 import * as Yup from 'yup';
 import clsx from 'clsx';
-import { useEffect, useId } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useEffect, useId, useState } from 'react';
+import {
+  Navigate,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsEditing } from '../../redux/contacts/slice';
-import {
-  selectContactById,
-  selectContactsState,
-} from '../../redux/contacts/selectors';
+import { selectCurrentContact } from '../../redux/contacts/selectors';
 
 import css from './ContactInfo.module.css';
 import Avatar from '../ui/Avatar/Avatar';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import CloseIcon from '@mui/icons-material/Close';
+import { updateContact } from '../../redux/contacts/operations';
 
 const FeedbackSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -32,14 +35,16 @@ const ContactInfo = () => {
   const lastNameId = useId();
   const phoneNumberId = useId();
 
-  const dispatch = useDispatch();
   const { contactId } = useParams();
-  const { isEditing } = useSelector(selectContactsState);
-  const contact = useSelector(state => selectContactById(state, contactId));
+  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const contact = useSelector(selectCurrentContact);
+  const openModal = useOutletContext();
 
   useEffect(() => {
-    dispatch(setIsEditing(false));
-  }, [dispatch, contactId]);
+    setIsEditing(false);
+  }, [contactId]);
 
   if (!contact) {
     return <Navigate to="/contacts" replace />;
@@ -47,6 +52,24 @@ const ContactInfo = () => {
 
   const nameInitials = contact?.name.match(/[A-Z]/g);
   const [firstName, ...lastName] = contact.name.split(' ');
+
+  const handleSubmit = values => {
+    dispatch(
+      updateContact({
+        contactId,
+        contactBody: {
+          name: values.firstName + ' ' + values.lastName,
+          number: values.phoneNumber,
+        },
+      })
+    );
+
+    setIsEditing(false);
+  };
+
+  const handleClose = () => {
+    navigate('/contacts');
+  };
 
   return (
     <>
@@ -64,12 +87,44 @@ const ContactInfo = () => {
             minWidth: '50px',
             boxShadow: 'none',
           }}
-          onClick={() => dispatch(setIsEditing(true))}
+          onClick={() => setIsEditing(true)}
         >
           Edit
         </Button>
       )}
-      <Avatar width={'75px'} height={'75px'}>
+      {isEditing ? (
+        <Button
+          variant="contained"
+          color="border"
+          size="small"
+          sx={{
+            textTransform: 'capitalize',
+            position: 'absolute',
+            left: '62px',
+            zIndex: '10',
+            letterSpacing: '0.06em',
+            minWidth: '50px',
+            boxShadow: 'none',
+          }}
+          onClick={() => setIsEditing(false)}
+        >
+          Cancel
+        </Button>
+      ) : (
+        <IconButton
+          title="Close"
+          size="small"
+          sx={{
+            position: 'absolute',
+            left: '17px',
+            zIndex: '10',
+          }}
+          onClick={handleClose}
+        >
+          <CloseIcon color="primary" fontSize="1rem" />
+        </IconButton>
+      )}
+      <Avatar id={contact.id} width={'75px'} height={'75px'}>
         {nameInitials ? nameInitials.join('') : contact.name[0].toUpperCase()}
       </Avatar>
       <Formik
@@ -80,11 +135,13 @@ const ContactInfo = () => {
           phoneNumber: contact.number,
         }}
         validationSchema={FeedbackSchema}
+        onSubmit={handleSubmit}
       >
         {({ errors, touched }) => (
           <Form className={css.editForm}>
             {isEditing && (
               <Button
+                type="submit"
                 variant="contained"
                 color="border"
                 size="small"
@@ -115,6 +172,7 @@ const ContactInfo = () => {
                     type="text"
                     name="firstName"
                     id={firstNameId}
+                    autoFocus
                   />
                   <EditNoteIcon />
                 </div>
@@ -179,6 +237,16 @@ const ContactInfo = () => {
           </Form>
         )}
       </Formik>
+      {isEditing && (
+        <Button
+          variant="contained"
+          color="accent"
+          sx={{ borderWidth: '2px', display: 'flex', margin: '0 auto' }}
+          onClick={() => openModal(contact)}
+        >
+          Delete Contact
+        </Button>
+      )}
     </>
   );
 };

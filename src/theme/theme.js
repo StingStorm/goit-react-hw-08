@@ -16,6 +16,7 @@ const theme = createTheme({
     },
     accent: {
       main: '#C65C5C',
+      contrastText: '#FAFAFA',
     },
     border: {
       main: '#4E5D72',
@@ -46,6 +47,21 @@ const theme = createTheme({
         root: {
           [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
             borderColor: 'var(--TextField-brandBorderColor)',
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          border: '2px solid #4E5D72',
+          backgroundColor: 'rgba(225, 153, 94)',
+
+          '& span': {
+            color: '#c65c5c',
+            textDecoration: 'underline',
+            textDecorationColor: '#000',
+            textUnderlineOffset: '4px',
           },
         },
       },
