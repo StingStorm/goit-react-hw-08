@@ -11,9 +11,10 @@ const handlePending = state => {
   state.loading = true;
 };
 
-const handleRejected = (state, action) => {
+const handleRejected = state => {
   state.loading = false;
-  state.error = action.payload;
+
+  toast.error('Oh no! Something went wrong');
 };
 
 const contactsSlice = createSlice({
@@ -22,7 +23,6 @@ const contactsSlice = createSlice({
     items: [],
     currentContact: null,
     loading: false,
-    error: null,
   },
 
   reducers: {
@@ -35,32 +35,24 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
         state.items = action.payload;
       })
       .addCase(fetchContacts.rejected, handleRejected)
-      .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
         state.items.push(action.payload);
 
         toast.success(`${action.payload.name} added to contacts list`);
       })
-      .addCase(addContact.rejected, handlePending)
-      .addCase(deleteContact.pending, handlePending)
+      .addCase(addContact.rejected, handleRejected)
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
         state.items = state.items.filter(item => item.id !== action.meta.arg);
 
         toast.success(`${action.payload.name} deleted from contacts list`);
       })
-      .addCase(deleteContact.rejected, handlePending)
-      .addCase(updateContact.pending, handlePending)
+      .addCase(deleteContact.rejected, handleRejected)
       .addCase(updateContact.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
         state.items = state.items.map(contact => {
           if (contact.id === action.payload.id) {
             return { ...contact, ...action.payload };
@@ -72,7 +64,7 @@ const contactsSlice = createSlice({
 
         toast.success(`${action.payload.name} updated`);
       })
-      .addCase(updateContact.rejected, handlePending);
+      .addCase(updateContact.rejected, handleRejected);
   },
 });
 

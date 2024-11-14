@@ -1,3 +1,3 @@
 export function generateColorById(id) {
-  return '#' + ((parseInt(id, 10) * 1234567) % 16777215).toString(16);
+  return '#' + ((parseInt(id, 16) * 1234567) % 16777215).toString(16);
 }
