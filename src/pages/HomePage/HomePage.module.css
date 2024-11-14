@@ -1,0 +1,27 @@
+.appTitle {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+
+  & span {
+    color: #fafafa;
+    text-decoration: underline;
+    text-decoration-color: #c65c5c;
+    text-underline-offset: 15px;
+  }
+}
+
+.heroDescr {
+  background-color: #f5cf88;
+  padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+  border: 1px solid #4e5d72;
+  border-radius: 0.5rem;
+
+  & h2 {
+    text-align: center;
+  }
+
+  & p {
+    text-indent: 25px;
+  }
+}

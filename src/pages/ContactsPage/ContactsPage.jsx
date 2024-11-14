@@ -2,15 +2,15 @@ import css from './ContactsPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { deleteContact, fetchContacts } from '../../redux/contacts/operations';
+import { selectContactsState } from '../../redux/contacts/selectors';
+import { setCurrentContact } from '../../redux/contacts/slice';
 
 import { Outlet } from 'react-router-dom';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import ContactList from '../../components/ContactList/ContactList';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import Loader from '../../components/Loader/Loader';
-import { selectContactsState } from '../../redux/contacts/selectors';
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
-import { setCurrentContact } from '../../redux/contacts/slice';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -43,6 +43,7 @@ const ContactsPage = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <div className={css.grid}>
         <div className={css.contactForm}>
           <ContactForm />
@@ -54,7 +55,6 @@ const ContactsPage = () => {
         <div className={css.contactInfo}>
           <Outlet context={handleOpenDialog} />
         </div>
-        {loading && <Loader />}
       </div>
 
       <Dialog

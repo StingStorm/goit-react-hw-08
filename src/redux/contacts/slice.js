@@ -5,6 +5,7 @@ import {
   fetchContacts,
   updateContact,
 } from './operations';
+import toast from 'react-hot-toast';
 
 const handlePending = state => {
   state.loading = true;
@@ -43,6 +44,8 @@ const contactsSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.items.push(action.payload);
+
+        toast.success(`${action.payload.name} added to contacts list`);
       })
       .addCase(addContact.rejected, handlePending)
       .addCase(deleteContact.pending, handlePending)
@@ -50,6 +53,8 @@ const contactsSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.items = state.items.filter(item => item.id !== action.meta.arg);
+
+        toast.success(`${action.payload.name} deleted from contacts list`);
       })
       .addCase(deleteContact.rejected, handlePending)
       .addCase(updateContact.pending, handlePending)
@@ -64,6 +69,8 @@ const contactsSlice = createSlice({
           return contact;
         });
         state.currentContact = action.payload;
+
+        toast.success(`${action.payload.name} updated`);
       })
       .addCase(updateContact.rejected, handlePending);
   },

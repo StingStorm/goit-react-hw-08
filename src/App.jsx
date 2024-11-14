@@ -1,7 +1,7 @@
 import './App.css';
 
 import { lazy, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './components/ui/Layout';
 import RestrictedRoute from './components/ui/RestrictedRoute';
 import PrivateRoute from './components/ui/PrivateRoute';
@@ -64,6 +64,7 @@ function App() {
               <Route index element={<ContactInfoStub />} />
               <Route path=":contactId" element={<ContactInfo />} />
             </Route>
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Layout>
       )}
