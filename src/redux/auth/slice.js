@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout, refreshUser, register } from './operations';
+import toast from 'react-hot-toast';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -19,6 +20,9 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.user = action.payload.user;
         state.token = action.payload.token;
+      })
+      .addCase(register.rejected, (state, action) => {
+        toast.error(action.payload);
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;

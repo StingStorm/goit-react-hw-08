@@ -22,7 +22,12 @@ export const register = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      thunkAPI.rejectWithValue(error.message);
+      if (error.response.data.code === 11000) {
+        return thunkAPI.rejectWithValue(
+          'The email you entered is already associated with an account'
+        );
+      }
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
